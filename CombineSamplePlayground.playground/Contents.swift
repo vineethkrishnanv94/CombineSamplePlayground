@@ -18,6 +18,7 @@ class ApiService: ObservableObject {
         URLSession.shared.dataTaskPublisher(for: url)
             .tryMap { $0.data }
             .decode(type: [Post].self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
             .sink { status in
                 switch status {
                     
